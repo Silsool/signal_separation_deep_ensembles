@@ -1,0 +1,5 @@
+matplotlib==3.7.2
+numpy==1.25.2
+patchworklib==0.6.3
+scipy==1.9.1
+torch==2.4.1+cu118
