@@ -13,16 +13,16 @@ from NN_archis import NN_archi
 import qltests as qlt
 #%%
 
-lr=0.001 # 0.001 by default, .01 for mock_DM_signal
+lr=0.01 # 0.001 by default, .01 for mock_DM_signal
 
 
 nruns=10 # number of runs to average
-nepochs =10000 #base is 100000
+nepochs =100000 #base is 100000
 showtimes=2 # to look at stats during run, optional
-sp_hat=True #True, False or "soft"
-med_block=False #True or False
+sp_hat="soft" #True, False or "soft"
+med_block=True #True or False
 
-name="Crab"#"MSH15652","Crab","simple_mock" or "mock_DM_signal"
+name="mock_DM_signal"#"MSH15652","Crab","simple_mock" or "mock_DM_signal"
 
 
 data=pickle.load(open('obs_data/'+name+'.pkl', 'rb'))
@@ -79,6 +79,8 @@ for n in range(nruns):
 
 #%%
 #Compute, display and save ensemble stats
+
 save_data=qlt.build_and_save_ensemble_stats(specs,data,all_stats,gu)
-#save_data=pickle.load(open('save_data/stats_Crab_hat.pkl', 'rb'))
+#save_data=pickle.load(open('save_data/stats_mock_DM_signal.pkl', 'rb'))
+
 qlt.display_ensemble_stats(save_data,data)

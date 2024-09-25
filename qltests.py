@@ -21,14 +21,13 @@ def poisson_loss(total, target_data):
     loss = -poisson_dist.log_prob(torch.tensor(target_data))#*obs_weights
     return torch.mean(loss).data
 
-def display_l(name,data):
+def display_l(obs_data):
         
-    obs=data["observation"]
-    #e_scale=data["e_scale"]
-    #name=data["name"]
+    obs=obs_data["observation"]
+    name=obs_data["name"]
 
     if name==("simple_mock" or "mock_DM_signal"):
-        total_sgn=data["total_nopoisson"]
+        total_sgn=obs_data["total_nopoisson"]
         target_loss_min=poisson_loss(total_sgn,obs)
         print("target L:",round(target_loss_min.item(),3))
     one_comp_e=np.mean(obs,axis=(0,1))
@@ -44,15 +43,15 @@ def display_l(name,data):
     print("minimal (overfit) L:",round(overfit_loss_min.item(),3))
 
 
-def display_stats(name,model,data,loss_record,gu,n):
+def display_stats(model,obs_data,loss_record,gu,n):
     
-    obs=data["observation"]
-    e_scale=data["e_scale"]
-    s_scale=data["s_scale"]
-    #name=data["name"]
+    obs=obs_data["observation"]
+    e_scale=obs_data["e_scale"]
+    s_scale=obs_data["s_scale"]
+    name=obs_data["name"]
 
     if name==("simple_mock" or "mock_DM_signal"):
-        total_sgn=data["total_nopoisson"]
+        total_sgn=obs_data["total_nopoisson"]
         target_loss_min=poisson_loss(total_sgn,obs)
     one_comp_e=np.mean(obs,axis=(0,1))
     one_comp_e=one_comp_e/np.sum(one_comp_e)
@@ -74,15 +73,9 @@ def display_stats(name,model,data,loss_record,gu,n):
     ax_loss.set_title("Loss")
     ax_loss.legend(loc="upper right")
     ax_loss.set_xlabel("gradient updates")
-    #plt.show()
-    #plt.close()
     
     
     sp_sgn,en_sgn,sp_bkg,en_bkg,total=model.final_outputs()
-    #sp_sgn=sp_sgn.cpu().detach().numpy()
-    #en_sgn=en_sgn.cpu().detach().numpy().reshape(-1)
-    #sp_bkg=sp_bkg.cpu().detach().numpy()
-    #en_bkg=en_bkg.cpu().detach().numpy().reshape(-1)
     total=total.cpu().detach().numpy()
 
     ax_en=pw.Brick(figsize=(6,4))
@@ -136,7 +129,7 @@ def display_stats(name,model,data,loss_record,gu,n):
     # Display using matplotlib
     img = plt.imread(buf)
     plt.imshow(img)
-    plt.axis('off')  # Hide axes
+    plt.axis('off')
     plt.show()
 
 
@@ -162,10 +155,10 @@ def compute_stats(model,obs,loss_record):
 
     return(np.array([np.squeeze(sp_src)]),np.array([np.squeeze(en_src)]),np.array([np.squeeze(sp_bkg)]),np.array([np.squeeze(en_bkg)]),np.array([loss_record]),np.array([weighted_prob]))
 
-def build_and_save_ensemble_stats(specs,obsdata,all_stats,gu):
+def build_and_save_ensemble_stats(specs,obs_data,all_stats,gu):
     
     nruns,nepochs,lr,sp_hat,med_block,name=specs
-    e_scale,s_scale=obsdata["e_scale"],obsdata["s_scale"]
+    e_scale,s_scale=obs_data["e_scale"],obs_data["s_scale"]
     all_s_src,all_e_src,all_s_bkg,all_e_bkg,all_loss,w_probs=all_stats
     savename=name
     if sp_hat=="soft":
@@ -400,7 +393,7 @@ def display_ensemble_stats(save_data,obs_data):#plot ensemble stats after n runs
     # Display using matplotlib
     img = plt.imread(buf)
     plt.imshow(img)
-    plt.axis('off')  # Hide axes
+    plt.axis('off')
     plt.show()
     plt.close()
     
@@ -411,5 +404,5 @@ def display_ensemble_stats(save_data,obs_data):#plot ensemble stats after n runs
     # Display using matplotlib
     img = plt.imread(buf)
     plt.imshow(img)
-    plt.axis('off')  # Hide axes
+    plt.axis('off')
     plt.show()
