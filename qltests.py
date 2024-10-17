@@ -157,7 +157,7 @@ def compute_stats(model,obs,loss_record):
 
 def build_and_save_ensemble_stats(specs,obs_data,all_stats,gu):
     
-    nruns,nepochs,lr,sp_hat,med_block,name=specs
+    nruns,nepochs,lr,sp_hat,med_block,name,name_plus=specs
     e_scale,s_scale=obs_data["e_scale"],obs_data["s_scale"]
     all_s_src,all_e_src,all_s_bkg,all_e_bkg,all_loss,w_probs=all_stats
     savename=name
@@ -167,7 +167,9 @@ def build_and_save_ensemble_stats(specs,obs_data,all_stats,gu):
         savename+="_hat"
     if med_block==True:
         savename+="_medblock"
+    savename+="_"+name_plus
     weights=w_probs/np.sum(w_probs)
+    
 
 
     #compute weighted averages for e and s components
@@ -282,8 +284,8 @@ def display_ensemble_stats(save_data,obs_data):#plot ensemble stats after n runs
         axen_all.semilogx(e_scale,all_e_bkg[i],color=blues[i],linestyle="dotted")
     axen_all.semilogx(e_scale,true_e_src,label="Source: GT",color="red")
     axen_all.semilogx(e_scale,true_e_bkg,label="Background: GT",color="blue")
-    axen_all.plot([], [], color=reds[4], linestyle="dotted", label="Source: NN")
-    axen_all.plot([], [], color=blues[4], linestyle="dotted", label="Background: NN")
+    axen_all.plot([], [], color=reds[int(n/2)], linestyle="dotted", label="Source: NN")
+    axen_all.plot([], [], color=blues[int(n/2)], linestyle="dotted", label="Background: NN")
     axen_all.set_ylabel("Counts (normalized)")
     axen_all.set_xlabel("Energy (TeV)")
     axen_all.set_title("Energy Spectra")
@@ -298,8 +300,8 @@ def display_ensemble_stats(save_data,obs_data):#plot ensemble stats after n runs
     for i in range(n):
         ax_sp_x_all.plot(s_scale_1D,all_s_src_x[i],color=reds[i],linestyle="dotted")#,label=str(i))
         ax_sp_x_all.plot(s_scale_1D,all_s_bkg_x[i],color=blues[i],linestyle="dotted")#,label=str(i))
-    ax_sp_x_all.plot([], [], color=reds[4], linestyle="dotted", label="Source: NN")
-    ax_sp_x_all.plot([], [], color=blues[4], linestyle="dotted", label="Background: NN")
+    ax_sp_x_all.plot([], [], color=reds[int(n/2)], linestyle="dotted", label="Source: NN")
+    ax_sp_x_all.plot([], [], color=blues[int(n/2)], linestyle="dotted", label="Background: NN")
     ax_sp_x_all.set_ylabel("Counts")
     ax_sp_x_all.set_xlabel("Position")
     ax_sp_x_all.set_title("Space distribution - single axis")
