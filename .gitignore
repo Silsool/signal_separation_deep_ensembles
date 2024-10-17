@@ -1,0 +1,10 @@
+
+
+# Ignore a specific file
+sgn_sep_NN_alt_gpu.py
+
+# Ignore a specific directory
+#/my_directory/
+
+# Ignore all files with a specific extension
+#*.log
