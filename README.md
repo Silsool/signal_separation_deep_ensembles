@@ -1,6 +1,7 @@
 # Deep Ensemble for Signal Separation in Cherenkov Telescope Observations
 
 This repository contains the Python code for a deep ensemble method developed for signal-background separation in Cherenkov telescope observations. The method leverages multiple deep learning models to improve robustness and accuracy in separating astrophysical signals from background noise, a critical task in high-energy astrophysics.
+The code runs on Python3 and is written for use in an IDE (such as Spyder), but can be run in command prompt.
 
 The codebase includes:
 
