@@ -14,5 +14,3 @@ The codebase includes:
 Runs are organized iteratively in a for loop for ease of use on PC; they can and should be run in parallel to speed up training when using servers.
 
 For a detailed explanation of the methodology and results, please refer to the associated [research article](https://arxiv.org/abs/2407.01329).
-
-Feel free to reach out at marion.ullmo@gmail.com if you have any questions or suggestions!
