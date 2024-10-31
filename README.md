@@ -9,7 +9,7 @@ The codebase includes:
 - The deep ensemble architecture (NN_archis.py).
 - The training/evaluation pipeline (sgn_sep_NN.py)
 - Visualization/evaluation tools for analyzing model performance (qltests.py).
-- Mock observations, including a simple toy case and a [simulated dark matter annihilation signal by A. Montanari](https://theses.hal.science/tel-04091290) and (preprocessed) observational data from the [HESS public release](https://www.mpi-hd.mpg.de/HESS/pages/dl3-dr1/) for testing (in obs_data)
+- Mock observations, including a simple toy case and a [simulated dark matter annihilation signal by A. Montanari](https://theses.hal.science/tel-04091290) , and (preprocessed) observational data from the [HESS public release](https://www.mpi-hd.mpg.de/HESS/pages/dl3-dr1/) for testing (in obs_data)
 
 Runs are organized iteratively in a for loop for ease of use on PC; they can and should be run in parallel to speed up training when using servers.
 
